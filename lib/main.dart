@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:splashscreen/splashscreen.dart';
@@ -11,10 +12,14 @@ void main() {
   ));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatefulWidget {  
   @override
   _MyAppState createState() => new _MyAppState();
+  
 }
+
+
+
 
 class _MyAppState extends State<MyApp> {
   @override
@@ -22,35 +27,160 @@ class _MyAppState extends State<MyApp> {
     return new SplashScreen(
       seconds: 14,
       navigateAfterSeconds: new AfterSplash(),
-      title: new Text(
-        'Welcome In SplashScreen',
-        style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-      ),
-    
+             
       image: Image.asset('images/logo.png'),
-      //  Image.asset("logo.png", height: 150.0, width: 150.0,),
-      // imageBackground: AssetImage("splash.png"),
-      // image Image(image: AssetImage('splash.png')),
+      imageBackground: AssetImage("images/splash.png"),
       backgroundColor: Colors.white,
       loaderColor: Colors.red,
     );
   }
 }
+int _currentPage = 0;
+final _pageController = PageController();
 
-class AfterSplash extends StatelessWidget {
+// class AfterSplash2 extends StatelessWidget {  
+//   Widget build(BuildContext context) {
+//     return new Scaffold(
+//       appBar: new AppBar(
+//         title: Image.asset("images/logo.png"),
+//         automaticallyImplyLeading: false,
+//       ),
+//       body: PageView(
+//         controller: _pageController,
+//         children: [
+//           Container(color: Colors.blue),
+//           Container(color: Colors.red),
+//           Container(color: Colors.greenAccent.shade700),
+//           Container(color: Colors.orange),
+//         ],
+//         onPageChanged: (index) {
+//           // Use a better state management solution
+//           // setState is used for simplicity
+//           setState(() => _currentPage = index);
+//         },
+//       ),
+//       bottomNavigationBar: BottomBar(
+//         selectedIndex: _currentPage,
+//         onTap: (int index) {
+//           _pageController.jumpToPage(index);
+//           setState(() => _currentPage = index);
+//         },
+//         items: <BottomBarItem>[
+//           BottomBarItem(
+//             icon: Icon(Icons.home),
+//             title: Text('Home'),
+//             activeColor: Colors.blue,
+//           ),
+//           BottomBarItem(
+//             icon: Icon(Icons.favorite),
+//             title: Text('Favorites'),
+//             activeColor: Colors.red,
+//             darkActiveColor: Colors.red.shade400, // Optional
+//           ),
+//           BottomBarItem(
+//             icon: Icon(Icons.person),
+//             title: Text('Account'),
+//             activeColor: Colors.greenAccent.shade700,
+//             darkActiveColor: Colors.greenAccent.shade400, // Optional
+//           ),
+//           BottomBarItem(
+//             icon: Icon(Icons.settings),
+//             title: Text('Settings'),
+//             activeColor: Colors.orange,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+class AfterSplash extends StatefulWidget {
+  const AfterSplash({ Key? key }) : super(key: key);
+
+  @override
+  _AfterSplashState createState() => _AfterSplashState();
+}
+
+class _AfterSplashState extends State<AfterSplash> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+     return new Scaffold(
       appBar: new AppBar(
         title: Image.asset("images/logo.png"),
+        centerTitle: true,
+         elevation: 0.0,
+         actions: [
+           ElevatedButton(onPressed: (){}, 
+           child: Row(
+             mainAxisAlignment: MainAxisAlignment.spaceAround,
+             children: [               
+               Icon(Icons.shopping_cart,),
+               SizedBox(width: 10,),
+               Text("Empty") 
+             ],
+           ),
+           
+           ),
+         ],
+       
         automaticallyImplyLeading: false,
       ),
-      body: new Center(
-        child: new Text(
-          "Succeeded!",
-          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
-        ),
+      body: PageView(
+        controller: _pageController,
+        children: [
+          Container(color: Colors.white),
+          Container(color: Colors.white),
+          Container(color: Colors.white),
+          Container(color: Colors.white),
+        ],
+        onPageChanged: (index) {
+          // Use a better state management solution
+          // setState is used for simplicity
+          setState(() => _currentPage = index);
+        },
+      ),
+      bottomNavigationBar: BottomBar(
+        selectedIndex: _currentPage,
+        onTap: (int index) {
+          _pageController.jumpToPage(index);
+          setState(() => _currentPage = index);
+        },
+        items: <BottomBarItem>[
+          BottomBarItem(
+            icon: Icon(Icons.dashboard),
+            title: Text('Home'),
+            activeColor: Colors.blue,
+          ),
+          BottomBarItem(
+            icon: Icon(Icons.favorite),
+            title: Text('Favorites'),
+            activeColor: Colors.red,
+            darkActiveColor: Colors.red.shade400, // Optional
+          ),
+          BottomBarItem(
+            icon: Icon(Icons.person),
+            title: Text('Account'),
+            activeColor: Colors.greenAccent.shade700,
+            darkActiveColor: Colors.greenAccent.shade400, // Optional
+          ),
+          BottomBarItem(
+            icon: Icon(Icons.settings),
+            title: Text('Settings'),
+            activeColor: Colors.orange,
+          ),
+        ],
       ),
     );
   }
 }
+
+// actions: [
+//         Row(
+//           mainAxisAlignment: MainAxisAlignment.end,
+//           children: [
+//             Icon(Icons.shopping_cart),
+//             Text('Empty')
+//           ],
+//         ),
+       
+//     ],
